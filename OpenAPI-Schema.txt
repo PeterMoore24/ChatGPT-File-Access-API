@@ -7,7 +7,7 @@
   },
   "servers": [
     {
-      "url": "https://9eb6-68-47-181-10.ngrok-free.app"
+      "url": "{INSERT NGROK URL}"
     }
   ],
   "paths": {
