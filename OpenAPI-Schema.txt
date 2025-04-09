@@ -1,0 +1,123 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Custom GPT File Access",
+    "version": "1.0.0",
+    "description": "A simple API to list and read local files with token-based authentication."
+  },
+  "servers": [
+    {
+      "url": "https://9eb6-68-47-181-10.ngrok-free.app"
+    }
+  ],
+  "paths": {
+    "/listfiles": {
+      "get": {
+        "summary": "List all files",
+        "operationId": "listFiles",
+        "description": "Retrieve a list of all files in the specified directory (recursive). Optionally, a subdirectory can be specified.",
+        "parameters": [
+          {
+            "name": "subdirectory",
+            "in": "query",
+            "required": false,
+            "description": "Optional name of a subdirectory to list files from.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - returns an array of file paths",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing X-Token"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/readfile": {
+      "get": {
+        "summary": "Read a file",
+        "operationId": "readFile",
+        "description": "Read the content of a single file located in the served directory.",
+        "parameters": [
+          {
+            "name": "file_path",
+            "in": "query",
+            "required": true,
+            "description": "Absolute or relative path of the file to read.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK - returns file path and content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "file_path": {
+                      "type": "string"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - invalid or missing X-Token"
+          },
+          "403": {
+            "description": "Forbidden - requested file is out of served directory range"
+          },
+          "404": {
+            "description": "File not found"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {
+      "apiKeyAuth": {
+        "type": "apiKey",
+        "name": "X-Token",
+        "in": "header"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyAuth": []
+    }
+  ]
+}
