@@ -9,7 +9,7 @@ import uvicorn
 import os.path
 
 # The directory we want to serve
-DIRECTORY_TO_SERVE = "/var/home/petermoore/Downloads/Nerds/NN-portal-main"
+DIRECTORY_TO_SERVE = "{INSERT DIRECTORY HERE}"
 
 # The bearer token you expect from ChatGPT or your custom GPT
 # (In production, store securely in env variables/secrets manager)
