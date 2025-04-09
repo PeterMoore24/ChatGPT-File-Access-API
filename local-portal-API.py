@@ -12,7 +12,6 @@ import os.path
 DIRECTORY_TO_SERVE = "{INSERT DIRECTORY HERE}"
 
 # The bearer token you expect from ChatGPT or your custom GPT
-# (In production, store securely in env variables/secrets manager)
 EXPECTED_API_KEY = os.getenv("API_TOKEN")
 
 app = FastAPI()
@@ -56,10 +55,6 @@ def list_files(
 
     print(abs_directory_path)
 
-    # # Verify the requested path is within DIRECTORY_TO_SERVE
-    # if not is_within_base_dir(abs_directory_path, DIRECTORY_TO_SERVE):
-    #     raise HTTPException(status_code=403, detail="Access to the requested directory is forbidden.")
-
     # Check if this is a real directory
     if not os.path.isdir(abs_directory_path):
         raise HTTPException(status_code=404, detail="Directory not found.")
@@ -92,9 +87,6 @@ def read_file(
     abs_requested_path = os.path.abspath(os.path.join(DIRECTORY_TO_SERVE, file_path))
 
     print(abs_requested_path)
-
-    # if not is_within_base_dir(abs_requested_path, DIRECTORY_TO_SERVE):
-    #     raise HTTPException(status_code=403, detail="Access to the requested file is forbidden.")
 
     if not os.path.isfile(abs_requested_path):
         raise HTTPException(status_code=404, detail="File not found.")
