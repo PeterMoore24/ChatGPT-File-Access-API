@@ -7,4 +7,5 @@ A Python API and OpenAPI schema to connect a custom ChatGPT to a directory on yo
 3) Edit the Python API file and set DIRECTORY_TO_SERVE to the desired directory.
 4) Run the Python API file, and copy the output URL.
 5) Paste that URL into the OpenAPI file, then paste the contents of that file into your custom GPT's schema.
+    a) Note: the URL must use https.
 6) Profit!
